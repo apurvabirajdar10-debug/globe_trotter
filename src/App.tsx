@@ -13,6 +13,8 @@ import { CatalogSearchView } from './components/CatalogSearchView';
 import { BudgetBreakdownView } from './components/BudgetBreakdownView';
 import { PublicTripView } from './components/PublicTripView';
 import { UserProfileView } from './components/UserProfileView';
+import { LoginPage } from './components/LoginPage';
+import { BookingsView } from './components/BookingsView';
 import { Trip, User } from './types/travel';
 import { api, clearAuthToken, setAuthToken } from './lib/api';
 
@@ -145,10 +147,15 @@ export default function App() {
 
   const handleAuthSuccess = async (authUser: User) => {
     setUser(authUser);
-    const tripsRes = await api.getTrips();
-    setTrips(tripsRes.trips);
-    if (tripsRes.trips.length > 0) {
-      handleSelectTrip(tripsRes.trips[0]);
+    setCurrentTab('dashboard');
+    try {
+      const tripsRes = await api.getTrips();
+      setTrips(tripsRes.trips);
+      if (tripsRes.trips.length > 0) {
+        handleSelectTrip(tripsRes.trips[0]);
+      }
+    } catch (err) {
+      console.error('Failed to load trips for authenticated user:', err);
     }
   };
 
@@ -161,6 +168,27 @@ export default function App() {
           <p className="text-xs text-slate-500">Connecting to relational database & travel routes...</p>
         </div>
       </div>
+    );
+  }
+
+  // Primary entry point: if user is not logged in and not viewing a public shared itinerary
+  if (!user && currentTab !== 'public') {
+    return (
+      <LoginPage
+        onAuthSuccess={handleAuthSuccess}
+        onContinueAsGuest={() => {
+          setUser({
+            id: 1,
+            name: 'Demo Traveler',
+            email: 'traveler@globetrotter.io',
+            currency: 'INR',
+            language: 'en',
+            saved_destinations: [],
+            created_at: new Date().toISOString()
+          });
+          setCurrentTab('dashboard');
+        }}
+      />
     );
   }
 
@@ -322,6 +350,16 @@ export default function App() {
             onUserUpdated={setUser}
             onLogout={handleLogout}
             onExploreDestination={handleExploreDestination}
+          />
+        )}
+
+        {/* VIEW 9: BOOKINGS CONCIERGE (TRANSIT, STAYS & ATTRACTIONS) */}
+        {currentTab === 'bookings' && (
+          <BookingsView
+            trips={trips}
+            activeTrip={activeTrip}
+            onSelectTrip={(t) => handleSelectTrip(t)}
+            onTripUpdated={handleTripUpdated}
           />
         )}
       </main>

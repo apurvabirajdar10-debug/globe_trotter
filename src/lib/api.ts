@@ -3,7 +3,7 @@ import { Trip, User, Stop, Activity, Expense, CatalogItem, OptimizationResult, A
 const API_BASE = '/api';
 
 export function getAuthToken(): string | null {
-  return localStorage.getItem('gt_token') || '1';
+  return localStorage.getItem('gt_token');
 }
 
 export function setAuthToken(token: string) {

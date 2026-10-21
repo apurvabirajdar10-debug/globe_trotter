@@ -26,9 +26,10 @@ const ai = new GoogleGenAI({
   },
 });
 
-// Middleware for demo session auth
-// We support simple Bearer or header-based user resolution or default to user 1 for smooth exploration
-function getUserIdFromReq(req: express.Request): number {
+// Middleware for session auth
+function getUserIdFromReq(req: express.Request, allowDefault: false): number | null;
+function getUserIdFromReq(req: express.Request, allowDefault?: true): number;
+function getUserIdFromReq(req: express.Request, allowDefault = true): number | null {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
@@ -40,7 +41,7 @@ function getUserIdFromReq(req: express.Request): number {
     const parsed = parseInt(customId, 10);
     if (!isNaN(parsed) && parsed > 0) return parsed;
   }
-  return 1; // Default to demo user (Alex Morgan)
+  return allowDefault ? 1 : null;
 }
 
 /* ==========================================================================
@@ -116,7 +117,10 @@ app.post('/api/auth/signup', (req, res) => {
 // GET /api/auth/me
 app.get('/api/auth/me', (req, res) => {
   try {
-    const userId = getUserIdFromReq(req);
+    const userId = getUserIdFromReq(req, false);
+    if (!userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
     const user = dbOps.getUserById(userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

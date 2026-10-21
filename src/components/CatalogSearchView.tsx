@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, MapPin, DollarSign, Clock, Star, Plus, Check, Compass, AlertCircle, X, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { Search, Filter, MapPin, DollarSign, Clock, Star, Plus, Check, Compass, AlertCircle, X, ChevronDown, CheckCircle2, Globe2, Layers, LayoutGrid, Sparkles } from 'lucide-react';
 import { CatalogItem, Trip, Stop } from '../types/travel';
 import { api } from '../lib/api';
+import { Interactive3DGlobe } from './Interactive3DGlobe';
+import { AddCityToTripModal } from './AddCityToTripModal';
+import { GlobeCity } from '../data/globeCities';
 
 interface CatalogSearchViewProps {
   trips: Trip[];
@@ -27,6 +30,11 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // 3D Globe & View Layout State
+  const [viewMode, setViewMode] = useState<'split' | 'globe' | 'cards'>('split');
+  const [selectedCityForAdd, setSelectedCityForAdd] = useState<GlobeCity | null>(null);
+  const [activeGlobeCity, setActiveGlobeCity] = useState<string>(initialQuery || 'Paris');
+
   // "Add to Trip" Modal State
   const [selectedItemToAdd, setSelectedItemToAdd] = useState<CatalogItem | null>(null);
   const [selectedTripId, setSelectedTripId] = useState<number | ''>('');
@@ -35,6 +43,18 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<'morning' | 'afternoon' | 'evening'>('morning');
   const [adding, setAdding] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleGlobeSelectCity = (cityName: string) => {
+    setActiveGlobeCity(cityName);
+    setQuery(cityName);
+    setCountry('all');
+    setToastMessage(`Focused on ${cityName}. Experiences updated below!`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleGlobeAddCity = (city: GlobeCity) => {
+    setSelectedCityForAdd(city);
+  };
 
   const fetchItems = async () => {
     setLoading(true);
@@ -165,7 +185,7 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
         </div>
       )}
 
-      {/* Header */}
+      {/* Header with 3D Globe View Switcher */}
       <div className="bg-white p-6 rounded-3xl border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
@@ -177,18 +197,71 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
             </span>
           </div>
           <h1 className="text-2xl font-bold font-serif-heading text-slate-900 mt-1">
-            City & Activity Search
+            Destination & City Discovery
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Filter iconic experiences by country, budget index, activity type, and duration — and attach them directly to your trips.
+            Spin the 3D globe to discover live hotspots, inspect city pins, and attach destinations or sights directly to your travel itinerary.
           </p>
+        </div>
+
+        {/* View Mode Switcher Pills */}
+        <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200 self-start md:self-auto">
+          <button
+            type="button"
+            onClick={() => setViewMode('split')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer ${
+              viewMode === 'split'
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Layers className="w-3.5 h-3.5 text-sky-600" />
+            <span>Split Explorer</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('globe')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer ${
+              viewMode === 'globe'
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Globe2 className="w-3.5 h-3.5 text-indigo-600" />
+            <span>3D Globe Only</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('cards')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all cursor-pointer ${
+              viewMode === 'cards'
+                ? 'bg-white text-slate-900 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <LayoutGrid className="w-3.5 h-3.5 text-slate-600" />
+            <span>Card Catalog</span>
+          </button>
         </div>
       </div>
 
-      {/* Search & Multi-Filters Toolbar */}
-      <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs space-y-4">
-        {/* Search Bar */}
-        <form onSubmit={handleSearchSubmit} className="flex gap-2">
+      {/* 3D Globe Visualization (Snapchat Style Location Radar) */}
+      {(viewMode === 'split' || viewMode === 'globe') && (
+        <div className="space-y-3">
+          <Interactive3DGlobe
+            onSelectCity={handleGlobeSelectCity}
+            onAddCityToTrip={handleGlobeAddCity}
+            selectedCityName={activeGlobeCity}
+          />
+        </div>
+      )}
+
+      {/* Search & Multi-Filters Toolbar (Hidden in 3D Globe Only mode) */}
+      {viewMode !== 'globe' && (
+        <>
+          <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-2xs space-y-4">
+            {/* Search Bar */}
+            <form onSubmit={handleSearchSubmit} className="flex gap-2">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
@@ -381,6 +454,8 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
           ))}
         </div>
       )}
+    </>
+  )}
 
       {/* "Add to Trip" Configuration Modal */}
       {selectedItemToAdd && (
@@ -520,6 +595,21 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
             )}
           </div>
         </div>
+      )}
+
+      {/* 3D Globe Direct Add City Stop Modal */}
+      {selectedCityForAdd && (
+        <AddCityToTripModal
+          city={selectedCityForAdd}
+          trips={trips}
+          onClose={() => setSelectedCityForAdd(null)}
+          onTripUpdated={(updatedTrip) => {
+            onActivityAddedToTrip(updatedTrip);
+            setToastMessage(`Added ${selectedCityForAdd.name} to itinerary!`);
+            setTimeout(() => setToastMessage(null), 3500);
+          }}
+          onOpenCreateTrip={onOpenCreateTrip}
+        />
       )}
     </div>
   );

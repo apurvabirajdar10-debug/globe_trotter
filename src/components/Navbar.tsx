@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Sparkles, Plus, MapPin, Calendar, DollarSign, User as UserIcon, LogOut, Menu, X, ChevronDown, ListFilter, Globe2 } from 'lucide-react';
+import { Compass, Sparkles, Plus, MapPin, Calendar, DollarSign, User as UserIcon, LogOut, Menu, X, ChevronDown, ListFilter, Globe2, Ticket } from 'lucide-react';
 import { User, Trip } from '../types/travel';
 
 interface NavbarProps {
@@ -173,6 +173,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Globe2 className="w-3.5 h-3.5" />
               <span>Explore Cities</span>
             </button>
+            <button
+              onClick={() => setCurrentTab('bookings')}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1.5 ${
+                currentTab === 'bookings'
+                  ? 'text-sky-600 bg-sky-50 font-semibold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              <Ticket className="w-3.5 h-3.5 text-amber-500" />
+              <span>Bookings</span>
+            </button>
           </nav>
 
           {/* Right Action Buttons */}
@@ -216,6 +227,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <p className="text-xs font-semibold text-slate-800">{user.name}</p>
                       <p className="text-[11px] text-slate-500 truncate">{user.email}</p>
                     </div>
+                    <button
+                      onClick={() => {
+                        setCurrentTab('bookings');
+                        setUserDropdownOpen(false);
+                      }}
+                      className="w-full px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center space-x-2 transition-colors text-left"
+                    >
+                      <Ticket className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Bookings Concierge</span>
+                    </button>
                     <button
                       onClick={() => {
                         setCurrentTab('profile');
@@ -332,6 +353,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100"
             >
               Explore Cities & Activities
+            </button>
+            <button
+              onClick={() => {
+                setCurrentTab('bookings');
+                setMobileMenuOpen(false);
+              }}
+              className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
+            >
+              <Ticket className="w-4 h-4 text-amber-500" />
+              <span>Bookings (Transit, Stays & Attractions)</span>
             </button>
             <button
               onClick={() => {
