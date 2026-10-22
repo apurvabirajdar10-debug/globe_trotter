@@ -34,3 +34,46 @@
 .animate-pulse-glow {
   animation: pulseGlow 3s infinite ease-in-out;
 }
+
+@media print {
+  body {
+    background: white !important;
+    color: #0f172a !important;
+  }
+
+  /* Hide navigation, drawers, modals overlay backgrounds, and toolbars during print */
+  nav,
+  button,
+  .no-print,
+  .fixed:not(:has(#printable-itinerary-doc)) {
+    display: none !important;
+  }
+
+  /* If printable-itinerary-doc is present, make it full-width with clean page margins */
+  #printable-itinerary-doc {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .fixed:has(#printable-itinerary-doc) {
+    position: static !important;
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    inset: auto !important;
+  }
+
+  .fixed:has(#printable-itinerary-doc) > div {
+    max-width: 100% !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+}

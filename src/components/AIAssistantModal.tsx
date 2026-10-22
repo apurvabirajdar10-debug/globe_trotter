@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Sparkles, MapPin, Calendar, DollarSign, Clock, ArrowRight, CheckCircle2, AlertCircle, Compass, Train, Plane, RefreshCw, AlertTriangle, RotateCcw } from 'lucide-react';
+import { X, Sparkles, MapPin, Calendar, IndianRupee, Clock, ArrowRight, CheckCircle2, AlertCircle, Compass, Train, Plane, RefreshCw, AlertTriangle, RotateCcw } from 'lucide-react';
 import { api } from '../lib/api';
 import { AIItineraryPlan, Trip } from '../types/travel';
 
@@ -340,7 +340,7 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center space-x-1.5">
-                    <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                    <IndianRupee className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Budget Level</span>
                   </label>
                   <select

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Sparkles, MapPin, Calendar, Clock, DollarSign, ArrowUp, ArrowDown, Trash2, Edit3, Train, Plane, Car, Bus, Ship, Check, AlertCircle, ChevronDown, ChevronUp, Eye, Compass, BookOpen, X } from 'lucide-react';
+import { Plus, Sparkles, MapPin, Calendar, Clock, IndianRupee, ArrowUp, ArrowDown, Trash2, Edit3, Train, Plane, Car, Bus, Ship, Check, AlertCircle, ChevronDown, ChevronUp, Eye, Compass, BookOpen, X } from 'lucide-react';
 import { Trip, Stop, Activity } from '../types/travel';
 import { api } from '../lib/api';
 

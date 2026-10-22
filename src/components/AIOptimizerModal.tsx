@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Sparkles, TrendingUp, DollarSign, Clock, MapPin, CheckCircle2, AlertTriangle, ShieldCheck, Zap, RotateCcw, Compass } from 'lucide-react';
+import { X, Sparkles, TrendingUp, IndianRupee, Clock, MapPin, CheckCircle2, AlertTriangle, ShieldCheck, Zap, RotateCcw, Compass } from 'lucide-react';
 import { Trip, OptimizationResult } from '../types/travel';
 import { api } from '../lib/api';
 

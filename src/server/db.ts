@@ -18,7 +18,7 @@ export function initDatabase() {
       password_hash TEXT NOT NULL,
       photo_url TEXT,
       language TEXT DEFAULT 'en',
-      currency TEXT DEFAULT 'USD',
+      currency TEXT DEFAULT 'INR',
       saved_destinations TEXT DEFAULT '[]',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
@@ -80,7 +80,7 @@ export function initDatabase() {
       title TEXT NOT NULL,
       category TEXT NOT NULL,
       amount REAL NOT NULL,
-      currency TEXT DEFAULT 'USD',
+      currency TEXT DEFAULT 'INR',
       date TEXT NOT NULL,
       paid_by TEXT,
       notes TEXT,
@@ -138,7 +138,7 @@ function seedData() {
     passwordHash,
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     'en',
-    'USD',
+    'INR',
     JSON.stringify(['Paris, France', 'Tokyo, Japan', 'Kyoto, Japan', 'Rome, Italy', 'Zurich, Switzerland', 'Barcelona, Spain'])
   );
 
@@ -158,7 +158,7 @@ function seedData() {
     '2026-06-22',
     'A classic summer journey through London, Paris, the Swiss Alps, and historic Rome with rail journeys.',
     'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=80',
-    4500,
+    385000,
     1,
     'european-grand-tour-classic'
   );
@@ -183,45 +183,45 @@ function seedData() {
   const zurichStopId = stops.find(s => s.city_name === 'Zurich')!.id;
   const romeStopId = stops.find(s => s.city_name === 'Rome')!.id;
 
-  // Activities for Trip 1
+  // Activities for Trip 1 (Costs in INR)
   const insertActivity = db.prepare(`
     INSERT INTO activities (stop_id, trip_id, title, description, date, time_slot, cost, category, duration_hours, location, booking_status, order_index)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
-  insertActivity.run(londonStopId, trip1Id, 'Tower of London & Crown Jewels', 'Explore medieval fortress and view historical regalia.', '2026-06-11', 'morning', 42, 'sightseeing', 3, 'Tower Hill', 'booked', 0);
-  insertActivity.run(londonStopId, trip1Id, 'Borough Market Street Food Tour', 'Taste artisan cheeses, pies, and pastries alongside Thames.', '2026-06-11', 'afternoon', 35, 'food', 2.5, 'Southwark', 'planned', 1);
-  insertActivity.run(londonStopId, trip1Id, 'West End Musical at Lyceum', 'Evening performance of The Lion King.', '2026-06-12', 'evening', 85, 'culture', 2.5, 'Covent Garden', 'booked', 2);
+  insertActivity.run(londonStopId, trip1Id, 'Tower of London & Crown Jewels', 'Explore medieval fortress and view historical regalia.', '2026-06-11', 'morning', 3400, 'sightseeing', 3, 'Tower Hill', 'booked', 0);
+  insertActivity.run(londonStopId, trip1Id, 'Borough Market Street Food Tour', 'Taste artisan cheeses, pies, and pastries alongside Thames.', '2026-06-11', 'afternoon', 2800, 'food', 2.5, 'Southwark', 'planned', 1);
+  insertActivity.run(londonStopId, trip1Id, 'West End Musical at Lyceum', 'Evening performance of The Lion King.', '2026-06-12', 'evening', 6800, 'culture', 2.5, 'Covent Garden', 'booked', 2);
 
-  insertActivity.run(parisStopId, trip1Id, 'Louvre Museum Guided Highlights', 'Mona Lisa, Winged Victory, and Venus de Milo tour.', '2026-06-14', 'morning', 55, 'culture', 3, 'Rue de Rivoli', 'booked', 0);
-  insertActivity.run(parisStopId, trip1Id, 'Sunset Seine River Cruise with Champagne', 'Golden hour boat tour past Eiffel Tower and Notre Dame.', '2026-06-14', 'evening', 45, 'relaxation', 1.5, 'Pont Neuf', 'booked', 1);
+  insertActivity.run(parisStopId, trip1Id, 'Louvre Museum Guided Highlights', 'Mona Lisa, Winged Victory, and Venus de Milo tour.', '2026-06-14', 'morning', 4400, 'culture', 3, 'Rue de Rivoli', 'booked', 0);
+  insertActivity.run(parisStopId, trip1Id, 'Sunset Seine River Cruise with Champagne', 'Golden hour boat tour past Eiffel Tower and Notre Dame.', '2026-06-14', 'evening', 3600, 'relaxation', 1.5, 'Pont Neuf', 'booked', 1);
   insertActivity.run(parisStopId, trip1Id, 'Montmartre Artists & Sacré-Cœur Walk', 'Wander bohemian cobbled alleys and panoramic city views.', '2026-06-15', 'afternoon', 0, 'sightseeing', 2.5, 'Montmartre', 'planned', 2);
 
-  insertActivity.run(zurichStopId, trip1Id, 'Uetliberg Mountain Hike & Vista', 'Scenic train ride up to summit lookout tower with Alps panorama.', '2026-06-17', 'morning', 18, 'adventure', 3.5, 'Uetliberg', 'planned', 0);
-  insertActivity.run(zurichStopId, trip1Id, 'Lake Zurich Sunset Boat Cruise', 'Peaceful cruise with views of snow-capped mountains.', '2026-06-17', 'evening', 25, 'relaxation', 1.5, 'Bürkliplatz', 'planned', 1);
-  insertActivity.run(zurichStopId, trip1Id, 'Swiss Fondue Dinner at Le Dézaley', 'Traditional Vaudois cheese fondue with local wine.', '2026-06-18', 'evening', 65, 'food', 2, 'Old Town', 'planned', 2);
+  insertActivity.run(zurichStopId, trip1Id, 'Uetliberg Mountain Hike & Vista', 'Scenic train ride up to summit lookout tower with Alps panorama.', '2026-06-17', 'morning', 1450, 'adventure', 3.5, 'Uetliberg', 'planned', 0);
+  insertActivity.run(zurichStopId, trip1Id, 'Lake Zurich Sunset Boat Cruise', 'Peaceful cruise with views of snow-capped mountains.', '2026-06-17', 'evening', 2100, 'relaxation', 1.5, 'Bürkliplatz', 'planned', 1);
+  insertActivity.run(zurichStopId, trip1Id, 'Swiss Fondue Dinner at Le Dézaley', 'Traditional Vaudois cheese fondue with local wine.', '2026-06-18', 'evening', 5200, 'food', 2, 'Old Town', 'planned', 2);
 
-  insertActivity.run(romeStopId, trip1Id, 'Colosseum & Roman Forum VIP Access', 'Priority access to underground arena and ancient senate.', '2026-06-20', 'morning', 68, 'sightseeing', 3.5, 'Piazza del Colosseo', 'booked', 0);
-  insertActivity.run(romeStopId, trip1Id, 'Trastevere Culinary Stroll & Gelato', 'Handmade cacio e pepe pasta and award-winning pistachio gelato.', '2026-06-20', 'evening', 50, 'food', 3, 'Trastevere', 'planned', 1);
-  insertActivity.run(romeStopId, trip1Id, 'Vatican Museums & Sistine Chapel', 'Michelangelo frescoes and St. Peter Basilica tour.', '2026-06-21', 'morning', 62, 'culture', 4, 'Vatican City', 'booked', 2);
+  insertActivity.run(romeStopId, trip1Id, 'Colosseum & Roman Forum VIP Access', 'Priority access to underground arena and ancient senate.', '2026-06-20', 'morning', 5500, 'sightseeing', 3.5, 'Piazza del Colosseo', 'booked', 0);
+  insertActivity.run(romeStopId, trip1Id, 'Trastevere Culinary Stroll & Gelato', 'Handmade cacio e pepe pasta and award-winning pistachio gelato.', '2026-06-20', 'evening', 4000, 'food', 3, 'Trastevere', 'planned', 1);
+  insertActivity.run(romeStopId, trip1Id, 'Vatican Museums & Sistine Chapel', 'Michelangelo frescoes and St. Peter Basilica tour.', '2026-06-21', 'morning', 4950, 'culture', 4, 'Vatican City', 'booked', 2);
 
-  // Expenses for Trip 1
+  // Expenses for Trip 1 (In INR)
   const insertExpense = db.prepare(`
     INSERT INTO expenses (trip_id, stop_id, title, category, amount, currency, date, paid_by, notes)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
-  insertExpense.run(trip1Id, londonStopId, 'Eurostar Train London to Paris', 'transport', 140, 'USD', '2026-06-13', 'Alex', 'Standard Premier class ticket');
-  insertExpense.run(trip1Id, londonStopId, 'Covent Garden Hotel (3 Nights)', 'stay', 680, 'USD', '2026-06-10', 'Alex', 'Includes breakfast');
-  insertExpense.run(trip1Id, parisStopId, 'Le Marais Boutique Hotel (3 Nights)', 'stay', 750, 'USD', '2026-06-13', 'Alex', 'Reserved through direct booking');
-  insertExpense.run(trip1Id, parisStopId, 'TGV Lyria Paris to Zurich', 'transport', 115, 'USD', '2026-06-16', 'Alex', 'High speed rail');
-  insertExpense.run(trip1Id, zurichStopId, 'Zurich Lakeview Hotel (3 Nights)', 'stay', 890, 'USD', '2026-06-16', 'Alex', 'Swiss standard rate');
-  insertExpense.run(trip1Id, zurichStopId, 'Zurich to Rome Flight', 'transport', 130, 'USD', '2026-06-19', 'Alex', 'Swiss Air flight with checked bag');
-  insertExpense.run(trip1Id, romeStopId, 'Trevi Heritage Apartment (3 Nights)', 'stay', 520, 'USD', '2026-06-19', 'Alex', 'Centrally located');
-  insertExpense.run(trip1Id, londonStopId, 'Tower of London & West End Tickets', 'activities', 127, 'USD', '2026-06-11', 'Alex', 'Pre-booked online');
-  insertExpense.run(trip1Id, parisStopId, 'Louvre & Seine Cruise Tickets', 'activities', 100, 'USD', '2026-06-14', 'Alex', 'Combined ticket vouchers');
-  insertExpense.run(trip1Id, romeStopId, 'Colosseum & Vatican Entry Fees', 'activities', 130, 'USD', '2026-06-20', 'Alex', 'Official skip-the-line passes');
-  insertExpense.run(trip1Id, null, 'Daily Dining & Local Cafes (Estimated)', 'meals', 600, 'USD', '2026-06-15', 'Alex', 'Budget allocation for 12 days');
+  insertExpense.run(trip1Id, londonStopId, 'Eurostar Train London to Paris', 'transport', 11500, 'INR', '2026-06-13', 'Alex', 'Standard Premier class ticket');
+  insertExpense.run(trip1Id, londonStopId, 'Covent Garden Hotel (3 Nights)', 'stay', 56000, 'INR', '2026-06-10', 'Alex', 'Includes breakfast');
+  insertExpense.run(trip1Id, parisStopId, 'Le Marais Boutique Hotel (3 Nights)', 'stay', 62000, 'INR', '2026-06-13', 'Alex', 'Reserved through direct booking');
+  insertExpense.run(trip1Id, parisStopId, 'TGV Lyria Paris to Zurich', 'transport', 9500, 'INR', '2026-06-16', 'Alex', 'High speed rail');
+  insertExpense.run(trip1Id, zurichStopId, 'Zurich Lakeview Hotel (3 Nights)', 'stay', 74000, 'INR', '2026-06-16', 'Alex', 'Swiss standard rate');
+  insertExpense.run(trip1Id, zurichStopId, 'Zurich to Rome Flight', 'transport', 10800, 'INR', '2026-06-19', 'Alex', 'Swiss Air flight with checked bag');
+  insertExpense.run(trip1Id, romeStopId, 'Trevi Heritage Apartment (3 Nights)', 'stay', 43000, 'INR', '2026-06-19', 'Alex', 'Centrally located');
+  insertExpense.run(trip1Id, londonStopId, 'Tower of London & West End Tickets', 'activities', 10200, 'INR', '2026-06-11', 'Alex', 'Pre-booked online');
+  insertExpense.run(trip1Id, parisStopId, 'Louvre & Seine Cruise Tickets', 'activities', 8000, 'INR', '2026-06-14', 'Alex', 'Combined ticket vouchers');
+  insertExpense.run(trip1Id, romeStopId, 'Colosseum & Vatican Entry Fees', 'activities', 10450, 'INR', '2026-06-20', 'Alex', 'Official skip-the-line passes');
+  insertExpense.run(trip1Id, null, 'Daily Dining & Local Cafes (Estimated)', 'meals', 48000, 'INR', '2026-06-15', 'Alex', 'Budget allocation for 12 days');
 
   // 3. Seed Trip 2: Japan Golden Route
   insertTrip.run(
@@ -231,7 +231,7 @@ function seedData() {
     '2026-10-14',
     'Autumn foliage, ultra-modern skylines, ancient shrines, and world-renowned gastronomy.',
     'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80',
-    3800,
+    320000,
     0,
     'japan-golden-route-autumn'
   );
@@ -248,44 +248,60 @@ function seedData() {
   const kyotoStopId = trip2Stops.find(s => s.city_name === 'Kyoto')!.id;
   const osakaStopId = trip2Stops.find(s => s.city_name === 'Osaka')!.id;
 
-  insertActivity.run(tokyoStopId, trip2Id, 'Shibuya Sky & Harajuku Vintage', '360 degree panoramic view of Tokyo followed by Cat Street shopping.', '2026-10-05', 'morning', 22, 'sightseeing', 3, 'Shibuya', 'booked', 0);
-  insertActivity.run(tokyoStopId, trip2Id, 'Tsukiji Outer Market Food Crawl', 'Fresh tamagoyaki, wagyu skewers, and fresh sashimi bowls.', '2026-10-06', 'morning', 40, 'food', 2.5, 'Chuo City', 'planned', 1);
-  insertActivity.run(tokyoStopId, trip2Id, 'teamLab Borderless Digital Art Museum', 'Immersive digital projection light installations.', '2026-10-06', 'afternoon', 32, 'culture', 3, 'Azabudai Hills', 'booked', 2);
+  insertActivity.run(tokyoStopId, trip2Id, 'Shibuya Sky & Harajuku Vintage', '360 degree panoramic view of Tokyo followed by Cat Street shopping.', '2026-10-05', 'morning', 1800, 'sightseeing', 3, 'Shibuya', 'booked', 0);
+  insertActivity.run(tokyoStopId, trip2Id, 'Tsukiji Outer Market Food Crawl', 'Fresh tamagoyaki, wagyu skewers, and fresh sashimi bowls.', '2026-10-06', 'morning', 3200, 'food', 2.5, 'Chuo City', 'planned', 1);
+  insertActivity.run(tokyoStopId, trip2Id, 'teamLab Borderless Digital Art Museum', 'Immersive digital projection light installations.', '2026-10-06', 'afternoon', 2600, 'culture', 3, 'Azabudai Hills', 'booked', 2);
 
   insertActivity.run(kyotoStopId, trip2Id, 'Fushimi Inari Early Morning Hike', 'Hike through 10,000 vermilion torii gates at sunrise before crowds.', '2026-10-09', 'morning', 0, 'adventure', 3, 'Fushimi Ward', 'planned', 0);
-  insertActivity.run(kyotoStopId, trip2Id, 'Authentic Matcha Tea Ceremony', 'Traditional matcha preparation with wagashi sweets in historic teahouse.', '2026-10-09', 'afternoon', 45, 'culture', 1.5, 'Higashiyama', 'booked', 1);
-  insertActivity.run(kyotoStopId, trip2Id, 'Arashiyama Bamboo Grove & Monkey Park', 'Towering bamboo stalks followed by Tenryu-ji Zen garden.', '2026-10-10', 'morning', 12, 'sightseeing', 3, 'Ukyo Ward', 'planned', 2);
+  insertActivity.run(kyotoStopId, trip2Id, 'Authentic Matcha Tea Ceremony', 'Traditional matcha preparation with wagashi sweets in historic teahouse.', '2026-10-09', 'afternoon', 3600, 'culture', 1.5, 'Higashiyama', 'booked', 1);
+  insertActivity.run(kyotoStopId, trip2Id, 'Arashiyama Bamboo Grove & Monkey Park', 'Towering bamboo stalks followed by Tenryu-ji Zen garden.', '2026-10-10', 'morning', 950, 'sightseeing', 3, 'Ukyo Ward', 'planned', 2);
 
-  insertActivity.run(osakaStopId, trip2Id, 'Osaka Castle & Park Grounds', 'Historic 16th century samurai fortress with panoramic museum.', '2026-10-12', 'morning', 15, 'sightseeing', 2.5, 'Chuo Ward', 'planned', 0);
-  insertActivity.run(osakaStopId, trip2Id, 'Dotonbori Street Food Odyssey', 'Takoyaki octopus balls, okonomiyaki savory pancakes, and Glico sign.', '2026-10-12', 'evening', 35, 'food', 3, 'Namba', 'planned', 1);
+  insertActivity.run(osakaStopId, trip2Id, 'Osaka Castle & Park Grounds', 'Historic 16th century samurai fortress with panoramic museum.', '2026-10-12', 'morning', 1200, 'sightseeing', 2.5, 'Chuo Ward', 'planned', 0);
+  insertActivity.run(osakaStopId, trip2Id, 'Dotonbori Street Food Odyssey', 'Takoyaki octopus balls, okonomiyaki savory pancakes, and Glico sign.', '2026-10-12', 'evening', 2800, 'food', 3, 'Namba', 'planned', 1);
 
-  insertExpense.run(trip2Id, tokyoStopId, 'JR 7-Day Rail Pass', 'transport', 340, 'USD', '2026-10-04', 'Alex', 'Nationwide Shinkansen pass');
-  insertExpense.run(trip2Id, tokyoStopId, 'Hotel Gracery Shinjuku (4 Nights)', 'stay', 620, 'USD', '2026-10-04', 'Alex', 'Heart of Shinjuku');
-  insertExpense.run(trip2Id, kyotoStopId, 'Gion Ryokan with Kaiseki (3 Nights)', 'stay', 840, 'USD', '2026-10-08', 'Alex', 'Includes multi-course dinner');
-  insertExpense.run(trip2Id, osakaStopId, 'Cross Hotel Osaka (3 Nights)', 'stay', 410, 'USD', '2026-10-11', 'Alex', 'Steps from Dotonbori');
-  insertExpense.run(trip2Id, tokyoStopId, 'TeamLab & Shibuya Sky Tickets', 'activities', 54, 'USD', '2026-10-05', 'Alex', 'Booked via app');
-  insertExpense.run(trip2Id, null, 'Meals & Dining Budget', 'meals', 500, 'USD', '2026-10-07', 'Alex', 'Mid-trip dining allocation');
+  insertExpense.run(trip2Id, tokyoStopId, 'JR 7-Day Rail Pass', 'transport', 27500, 'INR', '2026-10-04', 'Alex', 'Nationwide Shinkansen pass');
+  insertExpense.run(trip2Id, tokyoStopId, 'Hotel Gracery Shinjuku (4 Nights)', 'stay', 51000, 'INR', '2026-10-04', 'Alex', 'Heart of Shinjuku');
+  insertExpense.run(trip2Id, kyotoStopId, 'Gion Ryokan with Kaiseki (3 Nights)', 'stay', 69000, 'INR', '2026-10-08', 'Alex', 'Includes multi-course dinner');
+  insertExpense.run(trip2Id, osakaStopId, 'Cross Hotel Osaka (3 Nights)', 'stay', 33500, 'INR', '2026-10-11', 'Alex', 'Steps from Dotonbori');
+  insertExpense.run(trip2Id, tokyoStopId, 'TeamLab & Shibuya Sky Tickets', 'activities', 4400, 'INR', '2026-10-05', 'Alex', 'Booked via app');
+  insertExpense.run(trip2Id, null, 'Meals & Dining Budget', 'meals', 41000, 'INR', '2026-10-07', 'Alex', 'Mid-trip dining allocation');
 
-  // 4. Seed Catalog of Global Activities & Cities for Search
+  // 4. Seed Catalog of Global Activities & Cities for Search (Costs in INR)
   const catalogItems = [
-    { id: 'cat-1', city_name: 'Paris', country: 'France', title: 'Eiffel Tower Summit by Night', description: 'Take the elevator to the top of Paris for breathtaking views of the illuminated City of Light.', category: 'sightseeing', cost: 35, cost_index: 'moderate', duration_hours: 2.5, popularity: 99, image_url: 'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
-    { id: 'cat-2', city_name: 'Paris', country: 'France', title: 'Pastry & Croissant Baking Masterclass', description: 'Learn secret French techniques to roll and bake flaky butter croissants from a master baker.', category: 'food', cost: 95, cost_index: 'luxury', duration_hours: 3.0, popularity: 92, image_url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-3', city_name: 'Tokyo', country: 'Japan', title: 'Akihabara Retro Gaming & Anime Tour', description: 'Delve into multi-story arcade centers, rare vintage cartridges, and otaku culture with a local guide.', category: 'culture', cost: 40, cost_index: 'moderate', duration_hours: 3.0, popularity: 88, image_url: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
-    { id: 'cat-4', city_name: 'Tokyo', country: 'Japan', title: 'Omakase Sushi Counter Experience', description: '16-course seasonal nigiri tasting guided by a 3rd-generation sushi master in Ginza.', category: 'food', cost: 160, cost_index: 'luxury', duration_hours: 2.0, popularity: 96, image_url: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
-    { id: 'cat-5', city_name: 'Rome', country: 'Italy', title: 'Appian Way Electric Bike Exploration', description: 'Pedal along ancient Roman basalt cobblestones past aqueducts, catacombs, and rolling pine hills.', category: 'adventure', cost: 45, cost_index: 'moderate', duration_hours: 3.5, popularity: 86, image_url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-6', city_name: 'Rome', country: 'Italy', title: 'Handmade Pasta & Tiramisu Cooking Lab', description: 'Make tagliatelle and ravioli from scratch in a 17th-century palazzo accompanied by Chianti wine.', category: 'food', cost: 75, cost_index: 'moderate', duration_hours: 3.0, popularity: 94, image_url: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
-    { id: 'cat-7', city_name: 'Kyoto', country: 'Japan', title: 'Zen Meditation at Kennin-ji Temple', description: 'Practice seated zazen meditation followed by peaceful green tea overlooking gravel rock gardens.', category: 'relaxation', cost: 20, cost_index: 'budget', duration_hours: 1.5, popularity: 85, image_url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-8', city_name: 'Zurich', country: 'Switzerland', title: 'Thermal Baths & Spa Above the City', description: 'Bathe in mineral-rich rooftop thermal infinity pools overlooking the spire towers of Zurich.', category: 'relaxation', cost: 42, cost_index: 'moderate', duration_hours: 3.0, popularity: 90, image_url: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
-    { id: 'cat-9', city_name: 'London', country: 'United Kingdom', title: 'Sky Garden Sunrise & Breakfast', description: 'Marvel at 360-degree city skyline views from lush indoor landscaped gardens 35 stories up.', category: 'sightseeing', cost: 15, cost_index: 'budget', duration_hours: 2.0, popularity: 91, image_url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-10', city_name: 'London', country: 'United Kingdom', title: 'Secret Speakeasy & Cocktails in Soho', description: 'Discover hidden bookshelf doors and craft mixology cocktails in London bohemian entertainment hub.', category: 'food', cost: 50, cost_index: 'moderate', duration_hours: 2.5, popularity: 87, image_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
-    { id: 'cat-11', city_name: 'Barcelona', country: 'Spain', title: 'Sagrada Familia Tower Climb & Crypt', description: 'Gaudí architectural crown jewel with stained-glass rainbow light and nativity tower elevator access.', category: 'culture', cost: 38, cost_index: 'moderate', duration_hours: 2.5, popularity: 98, image_url: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-12', city_name: 'Barcelona', country: 'Spain', title: 'Gothic Quarter Tapas & Vermouth Crawl', description: 'Savor patatas bravas, Iberian bellota ham, and traditional red vermouth in medieval squares.', category: 'food', cost: 45, cost_index: 'moderate', duration_hours: 3.0, popularity: 93, image_url: 'https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-1', city_name: 'Paris', country: 'France', title: 'Eiffel Tower Summit by Night', description: 'Take the elevator to the top of Paris for breathtaking views of the illuminated City of Light.', category: 'sightseeing', cost: 2800, cost_index: 'moderate', duration_hours: 2.5, popularity: 99, image_url: 'https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-2', city_name: 'Paris', country: 'France', title: 'Pastry & Croissant Baking Masterclass', description: 'Learn secret French techniques to roll and bake flaky butter croissants from a master baker.', category: 'food', cost: 7600, cost_index: 'luxury', duration_hours: 3.0, popularity: 92, image_url: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-3', city_name: 'Tokyo', country: 'Japan', title: 'Akihabara Retro Gaming & Anime Tour', description: 'Delve into multi-story arcade centers, rare vintage cartridges, and otaku culture with a local guide.', category: 'culture', cost: 3200, cost_index: 'moderate', duration_hours: 3.0, popularity: 88, image_url: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-4', city_name: 'Tokyo', country: 'Japan', title: 'Omakase Sushi Counter Experience', description: '16-course seasonal nigiri tasting guided by a 3rd-generation sushi master in Ginza.', category: 'food', cost: 12800, cost_index: 'luxury', duration_hours: 2.0, popularity: 96, image_url: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-5', city_name: 'Rome', country: 'Italy', title: 'Appian Way Electric Bike Exploration', description: 'Pedal along ancient Roman basalt cobblestones past aqueducts, catacombs, and rolling pine hills.', category: 'adventure', cost: 3600, cost_index: 'moderate', duration_hours: 3.5, popularity: 86, image_url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-6', city_name: 'Rome', country: 'Italy', title: 'Handmade Pasta & Tiramisu Cooking Lab', description: 'Make tagliatelle and ravioli from scratch in a 17th-century palazzo accompanied by Chianti wine.', category: 'food', cost: 6000, cost_index: 'moderate', duration_hours: 3.0, popularity: 94, image_url: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-7', city_name: 'Kyoto', country: 'Japan', title: 'Zen Meditation at Kennin-ji Temple', description: 'Practice seated zazen meditation followed by peaceful green tea overlooking gravel rock gardens.', category: 'relaxation', cost: 1600, cost_index: 'budget', duration_hours: 1.5, popularity: 85, image_url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-8', city_name: 'Zurich', country: 'Switzerland', title: 'Thermal Baths & Spa Above the City', description: 'Bathe in mineral-rich rooftop thermal infinity pools overlooking the spire towers of Zurich.', category: 'relaxation', cost: 3400, cost_index: 'moderate', duration_hours: 3.0, popularity: 90, image_url: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-9', city_name: 'London', country: 'United Kingdom', title: 'Sky Garden Sunrise & Breakfast', description: 'Marvel at 360-degree city skyline views from lush indoor landscaped gardens 35 stories up.', category: 'sightseeing', cost: 1200, cost_index: 'budget', duration_hours: 2.0, popularity: 91, image_url: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-10', city_name: 'London', country: 'United Kingdom', title: 'Secret Speakeasy & Cocktails in Soho', description: 'Discover hidden bookshelf doors and craft mixology cocktails in London bohemian entertainment hub.', category: 'food', cost: 4000, cost_index: 'moderate', duration_hours: 2.5, popularity: 87, image_url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-11', city_name: 'Barcelona', country: 'Spain', title: 'Sagrada Familia Tower Climb & Crypt', description: 'Gaudí architectural crown jewel with stained-glass rainbow light and nativity tower elevator access.', category: 'culture', cost: 3100, cost_index: 'moderate', duration_hours: 2.5, popularity: 98, image_url: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-12', city_name: 'Barcelona', country: 'Spain', title: 'Gothic Quarter Tapas & Vermouth Crawl', description: 'Savor patatas bravas, Iberian bellota ham, and traditional red vermouth in medieval squares.', category: 'food', cost: 3600, cost_index: 'moderate', duration_hours: 3.0, popularity: 93, image_url: 'https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
     { id: 'cat-13', city_name: 'New York', country: 'United States', title: 'High Line & Chelsea Market Walk', description: 'Stroll on a converted elevated railroad trestle filled with wildflowers, public art, and artisan eateries.', category: 'sightseeing', cost: 0, cost_index: 'budget', duration_hours: 2.0, popularity: 95, image_url: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-14', city_name: 'New York', country: 'United States', title: 'Broadway Night VIP Orchestra Seating', description: 'Experience premiere musical theater on the legendary Great White Way in Midtown Manhattan.', category: 'culture', cost: 140, cost_index: 'luxury', duration_hours: 3.0, popularity: 97, image_url: 'https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
-    { id: 'cat-15', city_name: 'Bangkok', country: 'Thailand', title: 'Grand Palace & Emerald Buddha Temple', description: 'Golden spires, intricate mother-of-pearl mosaics, and sacred royal courtyards along the Chao Phraya.', category: 'culture', cost: 16, cost_index: 'budget', duration_hours: 3.0, popularity: 96, image_url: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
-    { id: 'cat-16', city_name: 'Bangkok', country: 'Thailand', title: 'Chinatown Yaowarat Midnight Food Tuk-Tuk', description: 'Zoom on neon tuk-tuks between Michelin Bib Gourmand street stalls for crab fried rice and mango sticky rice.', category: 'adventure', cost: 35, cost_index: 'budget', duration_hours: 3.5, popularity: 94, image_url: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
-    { id: 'cat-17', city_name: 'Sydney', country: 'Australia', title: 'Sydney Opera House Architectural Tour', description: 'Discover the engineering marvels and legendary concert acoustic halls designed by Jørn Utzon.', category: 'sightseeing', cost: 32, cost_index: 'moderate', duration_hours: 1.5, popularity: 93, image_url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-14', city_name: 'New York', country: 'United States', title: 'Broadway Night VIP Orchestra Seating', description: 'Experience premiere musical theater on the legendary Great White Way in Midtown Manhattan.', category: 'culture', cost: 11500, cost_index: 'luxury', duration_hours: 3.0, popularity: 97, image_url: 'https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-15', city_name: 'Bangkok', country: 'Thailand', title: 'Grand Palace & Emerald Buddha Temple', description: 'Golden spires, intricate mother-of-pearl mosaics, and sacred royal courtyards along the Chao Phraya.', category: 'culture', cost: 1300, cost_index: 'budget', duration_hours: 3.0, popularity: 96, image_url: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-16', city_name: 'Bangkok', country: 'Thailand', title: 'Chinatown Yaowarat Midnight Food Tuk-Tuk', description: 'Zoom on neon tuk-tuks between Michelin Bib Gourmand street stalls for crab fried rice and mango sticky rice.', category: 'adventure', cost: 2800, cost_index: 'budget', duration_hours: 3.5, popularity: 94, image_url: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-17', city_name: 'Sydney', country: 'Australia', title: 'Sydney Opera House Architectural Tour', description: 'Discover the engineering marvels and legendary concert acoustic halls designed by Jørn Utzon.', category: 'sightseeing', cost: 2600, cost_index: 'moderate', duration_hours: 1.5, popularity: 93, image_url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
     { id: 'cat-18', city_name: 'Sydney', country: 'Australia', title: 'Bondi to Coogee Coastal Cliff Walk', description: 'Dramatic ocean cliff pathway featuring turquoise ocean swimming baths, dolphin lookouts, and beaches.', category: 'adventure', cost: 0, cost_index: 'budget', duration_hours: 2.5, popularity: 91, image_url: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+
+    // National (India) Catalog Items
+    { id: 'cat-19', city_name: 'New Delhi', country: 'India', title: 'Old Delhi Heritage Food & Spice Trail', description: 'Explore historic Chandni Chowk alleyways, sampling legendary parathas, jalebis, and Asia’s largest spice market.', category: 'food', cost: 1800, cost_index: 'budget', duration_hours: 3.0, popularity: 97, image_url: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-20', city_name: 'New Delhi', country: 'India', title: 'Qutub Minar & Mehrauli Archaeological Walk', description: 'Marvel at the 73-meter victory minaret, ancient iron pillar, and ancient Sufi monuments in Mehrauli.', category: 'culture', cost: 600, cost_index: 'budget', duration_hours: 2.5, popularity: 92, image_url: 'https://images.unsplash.com/photo-1592635196078-9fdc757f27f4?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-21', city_name: 'Mumbai', country: 'India', title: 'Elephanta Caves Speedboat & Sculpture Tour', description: 'Cruise across Mumbai Harbour to UNESCO-listed 6th-century rock-cut Trimurti Shiva cave temples.', category: 'culture', cost: 2400, cost_index: 'moderate', duration_hours: 4.0, popularity: 95, image_url: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-22', city_name: 'Mumbai', country: 'India', title: 'Marine Drive & Chowpatty Street Food Crawl', description: 'Bask in Queen’s Necklace sunsets followed by Mumbai pav bhaji, bhel puri, and kulfi treats.', category: 'food', cost: 1200, cost_index: 'budget', duration_hours: 2.5, popularity: 96, image_url: 'https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-23', city_name: 'Jaipur', country: 'India', title: 'Amber Fort Hilltop Jeep & Palace Tour', description: 'Ascend the rugged Aravalli ridge to explore glittering Sheesh Mahal mirror halls and royal battlements.', category: 'sightseeing', cost: 1800, cost_index: 'moderate', duration_hours: 3.5, popularity: 98, image_url: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-24', city_name: 'Jaipur', country: 'India', title: 'Chokhi Dhani Rajasthani Cultural Evening', description: 'Traditional folk dances, puppet shows, camel rides, and an authentic royal Rajasthani thali banquet.', category: 'culture', cost: 2200, cost_index: 'moderate', duration_hours: 3.5, popularity: 94, image_url: 'https://images.unsplash.com/photo-1603228254119-e6a4d095dc59?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-25', city_name: 'Goa', country: 'India', title: 'Calangute & Baga Watersports Adventure', description: 'High-speed jet skiing, parasailing above the Arabian Sea, and banana boat rides on golden shores.', category: 'adventure', cost: 2500, cost_index: 'moderate', duration_hours: 3.0, popularity: 96, image_url: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-26', city_name: 'Goa', country: 'India', title: 'Old Goa Heritage Churches & Spice Plantation', description: 'Baroque architecture of Bom Jesus Basilica followed by an aromatic organic spice plantation lunch.', category: 'culture', cost: 1600, cost_index: 'budget', duration_hours: 3.5, popularity: 91, image_url: 'https://images.unsplash.com/photo-1588096344356-9b4317f2bc29?auto=format&fit=crop&w=600&q=80', recommended_time: 'afternoon' },
+    { id: 'cat-27', city_name: 'Bengaluru', country: 'India', title: 'Lalbagh Botanical Gardens & Heritage Walk', description: 'Centuries-old rare flora, 19th-century Victorian Glass House, and iconic South Indian filter coffee.', category: 'relaxation', cost: 450, cost_index: 'budget', duration_hours: 2.5, popularity: 89, image_url: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-28', city_name: 'Udaipur', country: 'India', title: 'Lake Pichola Royal Sunset Boat Cruise', description: 'Glide past glittering marble palaces of Jag Mandir and the majestic City Palace illuminated at twilight.', category: 'relaxation', cost: 1900, cost_index: 'moderate', duration_hours: 2.0, popularity: 97, image_url: 'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=600&q=80', recommended_time: 'evening' },
+    { id: 'cat-29', city_name: 'Varanasi', country: 'India', title: 'Sunrise Boat Ride on Holy River Ganga', description: 'Witness dawn prayers, ancient crematoria rituals, and ancient temple ghats along the sacred waters.', category: 'sightseeing', cost: 1200, cost_index: 'budget', duration_hours: 2.5, popularity: 99, image_url: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-30', city_name: 'Manali', country: 'India', title: 'Solang Valley Paragliding & Adventure', description: 'Tandem paragliding glide above cedar valleys with views of snow-clad Pir Panjal Himalayan peaks.', category: 'adventure', cost: 3200, cost_index: 'moderate', duration_hours: 3.0, popularity: 95, image_url: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-31', city_name: 'Agra', country: 'India', title: 'Taj Mahal Sunrise VIP Guided Entry', description: 'First entry into the world wonder at dawn to witness morning mist reflecting off translucent white Makrana marble.', category: 'sightseeing', cost: 1600, cost_index: 'moderate', duration_hours: 3.0, popularity: 100, image_url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
+    { id: 'cat-32', city_name: 'Kochi', country: 'India', title: 'Alleppey Backwaters Houseboat Day Cruise', description: 'Drift past emerald paddy fields, coconut groves, and tranquil lagoons aboard a thatched Kerala kettuvallam.', category: 'relaxation', cost: 4200, cost_index: 'moderate', duration_hours: 4.5, popularity: 96, image_url: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80', recommended_time: 'morning' },
   ];
 
   const insertCatalog = db.prepare(`
@@ -310,7 +326,7 @@ function seedData() {
     );
   }
 
-  console.log('Seeded database successfully!');
+  console.log('Seeded database successfully with INR values!');
 }
 
 // Database query helpers
@@ -326,7 +342,7 @@ export const dbOps = {
     const defaultAvatar = `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80`;
     const res = db.prepare(`
       INSERT INTO users (name, email, password_hash, photo_url, language, currency, saved_destinations)
-      VALUES (?, ?, ?, ?, 'en', 'USD', '[]')
+      VALUES (?, ?, ?, ?, 'en', 'INR', '[]')
     `).run(name, email, passwordHash, defaultAvatar);
     return this.getUserById(Number(res.lastInsertRowid));
   },
@@ -634,7 +650,7 @@ export const dbOps = {
       data.title,
       data.category,
       data.amount,
-      data.currency || 'USD',
+      data.currency || 'INR',
       data.date,
       data.paid_by || '',
       data.notes || ''
@@ -692,9 +708,16 @@ export const dbOps = {
   },
 
   // Catalog search
-  searchCatalog(filters: { query?: string; country?: string; category?: string; cost_index?: string; max_duration?: number }) {
+  searchCatalog(filters: { query?: string; country?: string; category?: string; cost_index?: string; max_duration?: number; scope?: 'national' | 'international' }) {
     let sql = 'SELECT * FROM catalog WHERE 1=1';
     const params: any[] = [];
+
+    // Scope restriction: National (India) vs International (outside India)
+    if (filters.scope === 'national') {
+      sql += " AND country = 'India'";
+    } else if (filters.scope === 'international') {
+      sql += " AND country != 'India'";
+    }
 
     if (filters.query) {
       sql += ' AND (city_name LIKE ? OR country LIKE ? OR title LIKE ? OR description LIKE ?)';
@@ -722,7 +745,13 @@ export const dbOps = {
     return db.prepare(sql).all(...params) as any[];
   },
 
-  getCatalogCountries() {
+  getCatalogCountries(scope?: string) {
+    if (scope === 'national') {
+      return ['India'];
+    }
+    if (scope === 'international') {
+      return (db.prepare("SELECT DISTINCT country FROM catalog WHERE country != 'India' ORDER BY country ASC").all() as any[]).map(r => r.country);
+    }
     return (db.prepare('SELECT DISTINCT country FROM catalog ORDER BY country ASC').all() as any[]).map(r => r.country);
   }
 };

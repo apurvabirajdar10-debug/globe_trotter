@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, MapPin, DollarSign, Clock, Star, Plus, Check, Compass, AlertCircle, X, ChevronDown, CheckCircle2, Globe2, Layers, LayoutGrid, Sparkles } from 'lucide-react';
+import { Search, Filter, MapPin, IndianRupee, Clock, Star, Plus, Check, Compass, AlertCircle, X, ChevronDown, CheckCircle2, Globe2, Layers, LayoutGrid, Sparkles } from 'lucide-react';
 import { CatalogItem, Trip, Stop } from '../types/travel';
 import { api } from '../lib/api';
 import { Interactive3DGlobe } from './Interactive3DGlobe';
@@ -432,13 +432,8 @@ export const CatalogSearchView: React.FC<CatalogSearchViewProps> = ({
                   <span className="text-[10px] uppercase font-bold text-slate-600 block">Est. Cost</span>
                   <div className="flex items-baseline space-x-1.5">
                     <span className="text-sm font-bold text-emerald-600">
-                      {item.cost > 0 ? `₹${Math.round(item.cost * 85).toLocaleString('en-IN')}` : 'Free Entrance'}
+                      {item.cost > 0 ? `₹${item.cost.toLocaleString('en-IN')}` : 'Free Entrance'}
                     </span>
-                    {item.cost > 0 && (
-                      <span className="text-[10px] text-slate-500 font-medium">
-                        (~${item.cost})
-                      </span>
-                    )}
                   </div>
                 </div>
 

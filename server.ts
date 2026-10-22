@@ -4,6 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { GoogleGenAI, Type } from '@google/genai';
 import { initDatabase, dbOps, hashPassword } from './src/server/db.ts';
+import { getDistributedAttractionsForCity } from './src/data/cityAttractions.ts';
 
 dotenv.config();
 
@@ -331,8 +332,58 @@ app.post('/api/trips/:id/stops', (req, res) => {
       order_index,
     });
 
+    // Automatically populate top must-visit spots and key attractions for this city,
+    // intelligently distributed across the specified number of days for this stop
+    try {
+      const sDate = new Date(start_date + 'T00:00:00');
+      const eDate = new Date(end_date + 'T00:00:00');
+      const dayCount = Math.max(1, Math.round((eDate.getTime() - sDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+
+      const attractions = getDistributedAttractionsForCity(city_name.trim(), country.trim(), dayCount);
+
+      attractions.forEach((attr, idx) => {
+        // Distribute activities across the days of this stop
+        const dayOffset = Math.min(dayCount - 1, Math.floor(idx / 2));
+        const actDateObj = new Date(sDate);
+        actDateObj.setDate(actDateObj.getDate() + dayOffset);
+        const dateStr = actDateObj.toISOString().split('T')[0];
+
+        dbOps.createActivity({
+          stop_id: stop.id,
+          trip_id: tripId,
+          title: attr.title,
+          description: attr.description,
+          date: dateStr,
+          time_slot: attr.time_slot,
+          cost: attr.cost,
+          category: attr.category,
+          duration_hours: attr.duration_hours,
+          location: attr.location,
+          booking_status: 'planned',
+          order_index: idx,
+        });
+
+        // Record expense for non-free attractions to keep budget sync accurate
+        if (attr.cost > 0) {
+          dbOps.createExpense({
+            trip_id: tripId,
+            stop_id: stop.id,
+            title: `${attr.title} (Ticket/Pass)`,
+            category: 'activities',
+            amount: attr.cost,
+            currency: 'INR',
+            date: dateStr,
+            paid_by: 'Alex',
+            notes: `Auto-scheduled attraction in ${city_name}`,
+          });
+        }
+      });
+    } catch (attrErr) {
+      console.warn('Could not auto-populate city attractions:', attrErr);
+    }
+
     const refreshedTrip = dbOps.getTripById(tripId);
-    return res.status(201).json({ stop, trip: refreshedTrip, message: `Added ${city_name} to itinerary` });
+    return res.status(201).json({ stop, trip: refreshedTrip, message: `Added ${city_name} to itinerary with scheduled attractions` });
   } catch (err: any) {
     return res.status(500).json({ error: 'Failed to add stop' });
   }
@@ -529,15 +580,16 @@ app.delete('/api/expenses/:id', (req, res) => {
 // GET /api/catalog/search
 app.get('/api/catalog/search', (req, res) => {
   try {
-    const { query, country, category, cost_index, max_duration } = req.query;
+    const { query, country, category, cost_index, max_duration, scope } = req.query;
     const items = dbOps.searchCatalog({
       query: query ? String(query) : undefined,
       country: country ? String(country) : undefined,
       category: category ? String(category) : undefined,
       cost_index: cost_index ? String(cost_index) : undefined,
       max_duration: max_duration ? parseFloat(String(max_duration)) : undefined,
+      scope: scope === 'national' || scope === 'international' ? scope : undefined,
     });
-    const countries = dbOps.getCatalogCountries();
+    const countries = dbOps.getCatalogCountries(scope ? String(scope) : undefined);
     return res.json({ items, countries, total: items.length });
   } catch (err: any) {
     return res.status(500).json({ error: 'Failed to search catalog' });
@@ -671,9 +723,9 @@ app.post('/api/ai/optimize-itinerary', async (req, res) => {
         country: s.country,
         dates: `${s.start_date} to ${s.end_date}`,
         activitiesCount: s.activities?.length || 0,
-        activities: s.activities?.map((a: any) => `${a.title} ($${a.cost})`),
+        activities: s.activities?.map((a: any) => `${a.title} (₹${a.cost})`),
       })),
-      expenses: trip.expenses?.map((e: any) => `${e.title}: $${e.amount} (${e.category})`),
+      expenses: trip.expenses?.map((e: any) => `${e.title}: ₹${e.amount} (${e.category})`),
     };
 
     if (process.env.GEMINI_API_KEY) {
@@ -685,7 +737,7 @@ ${JSON.stringify(summaryData, null, 2)}
 Provide an evaluation in JSON:
 - score: overall score 0-100 (e.g., 85)
 - summary: 2-3 sentence assessment of the itinerary
-- savings_potential: estimated potential savings in USD
+- savings_potential: estimated potential savings in INR (₹)
 - suggestions: array of items, each with:
   - category: "sequence" | "budget" | "pacing" | "logistics"
   - title: short headline (under 8 words)
@@ -796,7 +848,7 @@ app.post('/api/ai/trip-chat', async (req, res) => {
         tripContext = `Current Trip Details:
 - Name: ${trip.name}
 - Dates: ${trip.start_date} to ${trip.end_date}
-- Budget: $${trip.budget_total} (Spent: $${trip.total_spent || 0})
+- Budget: ₹${trip.budget_total} (Spent: ₹${trip.total_spent || 0})
 - Stops: ${trip.stops?.map((s: any) => `${s.city_name}, ${s.country} (${s.start_date} to ${s.end_date})`).join(' -> ')}
 - Activities: ${trip.stops?.flatMap((s: any) => s.activities?.map((a: any) => `${a.title} in ${s.city_name}`)).join(', ')}`;
       }

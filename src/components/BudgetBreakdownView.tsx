@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DollarSign, Plus, Trash2, Edit3, AlertTriangle, CheckCircle2, TrendingUp, PieChart, Tag, Calendar, MapPin, X, AlertCircle } from 'lucide-react';
+import { IndianRupee, Plus, Trash2, Edit3, AlertTriangle, CheckCircle2, TrendingUp, PieChart, Tag, Calendar, MapPin, X, AlertCircle } from 'lucide-react';
 import { Trip, Expense, Stop } from '../types/travel';
 import { api } from '../lib/api';
 import { BudgetMeter } from './BudgetMeter';
@@ -212,7 +212,7 @@ export const BudgetBreakdownView: React.FC<BudgetBreakdownViewProps> = ({
             onClick={() => setShowSetBudgetModal(true)}
             className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold shadow-xs flex items-center space-x-1.5 transition-all cursor-pointer border border-slate-200"
           >
-            <DollarSign className="w-4 h-4 text-emerald-600" />
+            <IndianRupee className="w-4 h-4 text-emerald-600" />
             <span>Set / Adjust Budget</span>
           </button>
           <button

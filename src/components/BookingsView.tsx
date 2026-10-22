@@ -2103,12 +2103,12 @@ export const BookingsView: React.FC<BookingsViewProps> = ({
             <div className="p-5 border-t border-slate-100 bg-slate-50 flex items-center space-x-2">
               <button
                 onClick={() => {
-                  alert(`Downloading e-voucher pass PDF for ${activeTicketVoucher.bookingRef}...`);
+                  window.print();
                 }}
-                className="flex-1 py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
+                className="flex-1 py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 cursor-pointer shadow-sm"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Save E-Voucher Pass</span>
+                <span>Print / Save Voucher</span>
               </button>
               <button
                 onClick={() => setActiveTicketVoucher(null)}

@@ -279,6 +279,7 @@ export default function App() {
           activeTrip ? (
             <ItineraryDisplayView
               trip={activeTrip}
+              onTripUpdated={handleTripUpdated}
               onOpenOptimizer={() => setOptimizerModalOpen(true)}
               onOpenBuilder={() => setCurrentTab('builder')}
               onOpenChat={() => setChatDrawerOpen(true)}

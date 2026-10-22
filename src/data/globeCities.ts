@@ -10,9 +10,157 @@ export interface GlobeCity {
   averageCostPerDayINR: number;
   bestSeason: string;
   color: string;
+  scope: 'national' | 'international';
 }
 
 export const GLOBE_CITIES: GlobeCity[] = [
+  // -------------------------------------------------------------
+  // NATIONAL (INDIA) DESTINATIONS
+  // -------------------------------------------------------------
+  {
+    id: 'new-delhi',
+    name: 'New Delhi',
+    country: 'India',
+    lat: 28.6139,
+    lng: 77.2090,
+    description: 'Capital heartland blending Mughal monuments, Lutyens avenues, vibrant spice markets, and gourmet street culinary feasts.',
+    image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Red Fort & Chandni Chowk Food Trail', 'Qutub Minar & Mehrauli Heritage Walk', 'Humayun’s Tomb & Sunder Nursery', 'India Gate & Kartavya Path'],
+    averageCostPerDayINR: 3800,
+    bestSeason: 'Oct - Mar',
+    color: '#f59e0b',
+    scope: 'national',
+  },
+  {
+    id: 'mumbai',
+    name: 'Mumbai',
+    country: 'India',
+    lat: 19.0760,
+    lng: 72.8777,
+    description: 'The City of Dreams along the Arabian Sea, featuring Victorian colonial architecture, Bollywood glitz, and sunset walks at Marine Drive.',
+    image: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Gateway of India & Colaba Causeway', 'Marine Drive Queen’s Necklace Sunset', 'Elephanta Island Caves Speedboat Excursion', 'Bandra Seaside Bandstand & Cafes'],
+    averageCostPerDayINR: 4500,
+    bestSeason: 'Nov - Feb',
+    color: '#06b6d4',
+    scope: 'national',
+  },
+  {
+    id: 'jaipur',
+    name: 'Jaipur',
+    country: 'India',
+    lat: 26.9124,
+    lng: 75.7873,
+    description: 'The Pink City of Rajasthan filled with majestic hilltop forts, ornate royal palaces, gemstone bazaars, and traditional hospitality.',
+    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Amber Fort & Sheesh Mahal Palace', 'Hawa Mahal Palace of Winds', 'City Palace & Jantar Mantar Observatory', 'Chokhi Dhani Rajasthani Village'],
+    averageCostPerDayINR: 3200,
+    bestSeason: 'Oct - Mar',
+    color: '#f97316',
+    scope: 'national',
+  },
+  {
+    id: 'goa',
+    name: 'Goa',
+    country: 'India',
+    lat: 15.2993,
+    lng: 74.1240,
+    description: 'Tropical coastal haven famous for golden sandy beaches, Portuguese baroque churches, spice plantations, and vibrant nightlife.',
+    image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Calangute & Baga Sunset Watersports', 'Old Goa Basilica of Bom Jesus', 'Dudhsagar Waterfalls & Jeep Safari', 'Anjuna Flea Market & Shacks'],
+    averageCostPerDayINR: 3500,
+    bestSeason: 'Nov - Apr',
+    color: '#10b981',
+    scope: 'national',
+  },
+  {
+    id: 'bengaluru',
+    name: 'Bengaluru',
+    country: 'India',
+    lat: 12.9716,
+    lng: 77.5946,
+    description: 'The Garden City and Silicon Valley of India, celebrated for year-round pleasant weather, expansive botanical parks, and craft breweries.',
+    image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Lalbagh Botanical Garden Glass House', 'Bangalore Palace Royal Architecture', 'Cubbon Park Morning Walk & Filter Coffee', 'Indiranagar Craft Breweries Crawl'],
+    averageCostPerDayINR: 3400,
+    bestSeason: 'Sep - Mar',
+    color: '#8b5cf6',
+    scope: 'national',
+  },
+  {
+    id: 'udaipur',
+    name: 'Udaipur',
+    country: 'India',
+    lat: 24.5854,
+    lng: 73.7125,
+    description: 'The romantic City of Lakes surrounded by the Aravalli hills, floating island marble palaces, and royal courtyards.',
+    image: 'https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=600&q=80',
+    topSights: ['City Palace Complex & Crystal Gallery', 'Lake Pichola Sunset Boat Cruise', 'Jag Mandir Island Palace Tour', 'Saheliyon-ki-Bari Fountains'],
+    averageCostPerDayINR: 3900,
+    bestSeason: 'Oct - Mar',
+    color: '#ec4899',
+    scope: 'national',
+  },
+  {
+    id: 'varanasi',
+    name: 'Varanasi',
+    country: 'India',
+    lat: 25.3176,
+    lng: 82.9739,
+    description: 'One of the world’s oldest continuously inhabited spiritual cities, known for river ghats, mesmerising Ganga Aarti, and sacred temple alleys.',
+    image: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Dashashwamedh Ghat Evening Ganga Aarti', 'Sunrise Boat Ride on River Ganga', 'Kashi Vishwanath Temple Corridor', 'Sarnath Ancient Buddhist Deer Park'],
+    averageCostPerDayINR: 2400,
+    bestSeason: 'Oct - Mar',
+    color: '#eab308',
+    scope: 'national',
+  },
+  {
+    id: 'kochi',
+    name: 'Kochi',
+    country: 'India',
+    lat: 9.9312,
+    lng: 76.2673,
+    description: 'Historic spice coast port in Kerala with cantilevered Chinese fishing nets, colonial Fort Kochi bungalows, and tranquil backwater access.',
+    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Fort Kochi Chinese Fishing Nets', 'Mattancherry Dutch Palace & Jew Town', 'Alleppey Backwaters Houseboat Cruise', 'Kathakali Dance & Martial Arts Theatre'],
+    averageCostPerDayINR: 3200,
+    bestSeason: 'Sep - Mar',
+    color: '#14b8a6',
+    scope: 'national',
+  },
+  {
+    id: 'manali',
+    name: 'Manali',
+    country: 'India',
+    lat: 32.2432,
+    lng: 77.1892,
+    description: 'Breathtaking Himalayan hill resort in Himachal Pradesh flanked by snow peaks, pine forests, hot springs, and adventure sports.',
+    image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Solang Valley Paragliding & Adventure', 'Rohtang Pass Snow Vista', 'Hadimba Devi Cedar Forest Temple', 'Old Manali Bohemian Cafes & River Trail'],
+    averageCostPerDayINR: 2800,
+    bestSeason: 'Year-round',
+    color: '#0284c7',
+    scope: 'national',
+  },
+  {
+    id: 'agra',
+    name: 'Agra',
+    country: 'India',
+    lat: 27.1767,
+    lng: 78.0081,
+    description: 'Home of the timeless Taj Mahal, red sandstone imperial forts, and ancient Mughal garden architecture along the Yamuna river.',
+    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80',
+    topSights: ['Taj Mahal Sunrise VIP Experience', 'Agra Fort Red Sandstone Palaces', 'Mehtab Bagh Sunset Reflection View', 'Fatehpur Sikri Imperial Ruins'],
+    averageCostPerDayINR: 2600,
+    bestSeason: 'Oct - Mar',
+    color: '#f43f5e',
+    scope: 'national',
+  },
+
+  // -------------------------------------------------------------
+  // INTERNATIONAL DESTINATIONS
+  // -------------------------------------------------------------
   {
     id: 'paris',
     name: 'Paris',
@@ -24,7 +172,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Eiffel Tower Summit', 'Louvre Museum Guided Tour', 'Seine Sunset River Cruise', 'Montmartre Sacré-Cœur'],
     averageCostPerDayINR: 12500,
     bestSeason: 'Apr - Oct',
-    color: '#38bdf8', // sky
+    color: '#38bdf8',
+    scope: 'international',
   },
   {
     id: 'barcelona',
@@ -37,7 +186,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Sagrada Familia Tower Climb', 'Park Güell Panoramas', 'Gothic Quarter Tapas Crawl', 'Barceloneta Beach'],
     averageCostPerDayINR: 9500,
     bestSeason: 'May - Oct',
-    color: '#f59e0b', // amber
+    color: '#f59e0b',
+    scope: 'international',
   },
   {
     id: 'london',
@@ -50,7 +200,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Tower of London & Crown Jewels', 'West End Musical Theatre', 'Sky Garden City Lookout', 'Borough Market Street Food'],
     averageCostPerDayINR: 13500,
     bestSeason: 'May - Sep',
-    color: '#818cf8', // indigo
+    color: '#818cf8',
+    scope: 'international',
   },
   {
     id: 'rome',
@@ -63,7 +214,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Colosseum Underground Access', 'Vatican Museums & Sistine Chapel', 'Trevi Fountain & Spanish Steps', 'Trastevere Pasta Lab'],
     averageCostPerDayINR: 10500,
     bestSeason: 'Apr - Jun, Sep - Nov',
-    color: '#ec4899', // pink
+    color: '#ec4899',
+    scope: 'international',
   },
   {
     id: 'zurich',
@@ -76,7 +228,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Thermal Baths & Spa Above City', 'Uetliberg Mountain Summit', 'Lake Zurich Sunset Boat Cruise', 'Old Town Fondue'],
     averageCostPerDayINR: 16000,
     bestSeason: 'Jun - Sep, Dec - Mar',
-    color: '#2dd4bf', // teal
+    color: '#2dd4bf',
+    scope: 'international',
   },
   {
     id: 'tokyo',
@@ -89,7 +242,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['teamLab Borderless Digital Art', 'Shibuya Sky 360 Lookout', 'Tsukiji Outer Market Food Crawl', 'Akihabara Otaku Culture'],
     averageCostPerDayINR: 11000,
     bestSeason: 'Mar - May, Oct - Dec',
-    color: '#a855f7', // purple
+    color: '#a855f7',
+    scope: 'international',
   },
   {
     id: 'kyoto',
@@ -102,7 +256,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Fushimi Inari Torii Gate Hike', 'Arashiyama Bamboo Grove', 'Kennin-ji Zen Meditation', 'Gion Historic Teahouse Tour'],
     averageCostPerDayINR: 9800,
     bestSeason: 'Mar - May, Oct - Nov',
-    color: '#f43f5e', // rose
+    color: '#f43f5e',
+    scope: 'international',
   },
   {
     id: 'bangkok',
@@ -115,7 +270,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Grand Palace & Emerald Buddha', 'Chinatown Midnight Food Tuk-Tuk', 'Wat Arun Temple of Dawn', 'Chao Phraya Longtail Boat'],
     averageCostPerDayINR: 5500,
     bestSeason: 'Nov - Feb',
-    color: '#eab308', // yellow
+    color: '#eab308',
+    scope: 'international',
   },
   {
     id: 'new-york',
@@ -128,7 +284,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Broadway VIP Orchestra Seating', 'High Line & Chelsea Market', 'Empire State Observation Deck', 'Central Park Bicycle Loop'],
     averageCostPerDayINR: 17500,
     bestSeason: 'Apr - Jun, Sep - Dec',
-    color: '#06b6d4', // cyan
+    color: '#06b6d4',
+    scope: 'international',
   },
   {
     id: 'sydney',
@@ -141,7 +298,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Sydney Opera House Architectural Tour', 'Bondi to Coogee Coastal Walk', 'Harbour Bridge Pylon Climb', 'Manly Ferry Ride'],
     averageCostPerDayINR: 11500,
     bestSeason: 'Sep - Nov, Feb - Apr',
-    color: '#10b981', // emerald
+    color: '#10b981',
+    scope: 'international',
   },
   {
     id: 'dubai',
@@ -154,7 +312,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Burj Khalifa At The Top Lounge', 'Desert Dunes Safari & Sunset BBQ', 'Palm Jumeirah Boardwalk', 'Dubai Mall Fountain Show'],
     averageCostPerDayINR: 14000,
     bestSeason: 'Nov - Mar',
-    color: '#fbbf24', // amber gold
+    color: '#fbbf24',
+    scope: 'international',
   },
   {
     id: 'singapore',
@@ -167,7 +326,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Gardens by the Bay Supertrees', 'Marina Bay Sands SkyPark', 'Chinatown Hawker Center Crawl', 'Sentosa Island Cable Car'],
     averageCostPerDayINR: 12000,
     bestSeason: 'Year-round',
-    color: '#14b8a6', // teal
+    color: '#14b8a6',
+    scope: 'international',
   },
   {
     id: 'cairo',
@@ -180,7 +340,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Great Pyramids of Giza & Sphinx', 'Grand Egyptian Museum Antiquities', 'Nile Sunset Felucca Sail', 'Khan el-Khalili Bazaar'],
     averageCostPerDayINR: 6500,
     bestSeason: 'Oct - Apr',
-    color: '#f97316', // orange
+    color: '#f97316',
+    scope: 'international',
   },
   {
     id: 'rio',
@@ -193,7 +354,8 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Christ the Redeemer Corcovado', 'Sugarloaf Mountain Cableway', 'Copacabana & Ipanema Stroll', 'Santa Teresa Bohemian Cafes'],
     averageCostPerDayINR: 8200,
     bestSeason: 'May - Oct',
-    color: '#84cc16', // lime
+    color: '#84cc16',
+    scope: 'international',
   },
   {
     id: 'cape-town',
@@ -206,6 +368,19 @@ export const GLOBE_CITIES: GlobeCity[] = [
     topSights: ['Table Mountain Aerial Cableway', 'Boulders Beach African Penguins', 'Cape Point Scenic Coastal Drive', 'V&A Waterfront Catamaran'],
     averageCostPerDayINR: 8800,
     bestSeason: 'Nov - Apr',
-    color: '#0284c7', // light blue
+    color: '#0284c7',
+    scope: 'international',
   },
 ];
+
+export function getNationalCities(): GlobeCity[] {
+  return GLOBE_CITIES.filter(c => c.scope === 'national');
+}
+
+export function getInternationalCities(): GlobeCity[] {
+  return GLOBE_CITIES.filter(c => c.scope === 'international');
+}
+
+export function getCitiesByScope(scope: 'national' | 'international'): GlobeCity[] {
+  return GLOBE_CITIES.filter(c => c.scope === scope);
+}

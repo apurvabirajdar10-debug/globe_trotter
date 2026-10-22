@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Share2, MapPin, Calendar, DollarSign, Clock, ArrowLeft, CheckCircle2, Compass, Check, ArrowRight } from 'lucide-react';
+import { Copy, Share2, MapPin, Calendar, IndianRupee, Clock, ArrowLeft, CheckCircle2, Compass, Check, ArrowRight } from 'lucide-react';
 import { Trip } from '../types/travel';
 import { api } from '../lib/api';
 
@@ -117,8 +117,8 @@ export const PublicTripView: React.FC<PublicTripViewProps> = ({
             </span>
             {trip.budget_total > 0 && (
               <span className="flex items-center space-x-1">
-                <DollarSign className="w-4 h-4 text-emerald-400" />
-                <span>Est. Budget: ${trip.budget_total.toLocaleString()}</span>
+                <IndianRupee className="w-4 h-4 text-emerald-400" />
+                <span>Est. Budget: ₹{trip.budget_total.toLocaleString('en-IN')}</span>
               </span>
             )}
           </div>
@@ -194,7 +194,7 @@ export const PublicTripView: React.FC<PublicTripViewProps> = ({
                     >
                       <div className="flex items-center justify-between text-[10px] font-bold">
                         <span className="uppercase text-sky-600">{act.time_slot}</span>
-                        <span className="text-emerald-600">{act.cost > 0 ? `$${act.cost}` : 'Free'}</span>
+                        <span className="text-emerald-600">{act.cost > 0 ? `₹${act.cost.toLocaleString('en-IN')}` : 'Free'}</span>
                       </div>
                       <h4 className="font-bold text-xs text-slate-900">{act.title}</h4>
                       {act.description && (

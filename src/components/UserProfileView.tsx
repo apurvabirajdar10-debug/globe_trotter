@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User, Trip } from '../types/travel';
 import { api } from '../lib/api';
-import { User as UserIcon, Mail, Globe, DollarSign, Image as ImageIcon, Heart, Trash2, Plus, Download, Check, AlertCircle, Compass, Shield } from 'lucide-react';
+import { User as UserIcon, Mail, Globe, IndianRupee, Image as ImageIcon, Heart, Trash2, Plus, Download, Check, AlertCircle, Compass, Shield } from 'lucide-react';
 
 interface UserProfileViewProps {
   user: User;
@@ -254,7 +254,7 @@ export const UserProfileView: React.FC<UserProfileViewProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center space-x-1.5">
-              <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+              <IndianRupee className="w-3.5 h-3.5 text-emerald-600" />
               <span>Preferred Currency</span>
             </label>
             <select
@@ -262,6 +262,7 @@ export const UserProfileView: React.FC<UserProfileViewProps> = ({
               onChange={(e) => setCurrency(e.target.value)}
               className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 font-semibold"
             >
+              <option value="INR">INR (₹ - Indian Rupee)</option>
               <option value="USD">USD ($ - United States Dollar)</option>
               <option value="EUR">EUR (€ - Euro)</option>
               <option value="GBP">GBP (£ - British Pound)</option>

@@ -16,7 +16,8 @@ import {
   Maximize2,
   Minimize2,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  X
 } from 'lucide-react';
 
 interface Interactive3DGlobeProps {
@@ -630,7 +631,17 @@ export const Interactive3DGlobe: React.FC<Interactive3DGlobeProps> = ({
 
       {/* City Spotlight Card (Snapchat Location Card Overlay) */}
       {selectedCity && (
-        <div className="absolute top-16 right-4 sm:top-4 sm:right-16 z-20 w-80 sm:w-88 bg-slate-900/95 border border-sky-500/30 rounded-3xl p-4 shadow-2xl backdrop-blur-md animate-in slide-in-from-right-4 duration-300 text-white">
+        <div className="absolute top-16 right-4 sm:top-4 sm:right-16 z-20 w-80 sm:w-88 bg-slate-900/95 border border-sky-500/30 rounded-3xl p-4 shadow-2xl backdrop-blur-md animate-in slide-in-from-right-4 duration-300 text-white relative">
+          {/* Exit / Close Card Button */}
+          <button
+            onClick={() => setSelectedCity(null)}
+            className="absolute top-3 right-3 p-1.5 rounded-full bg-slate-800/80 hover:bg-rose-600/90 text-slate-300 hover:text-white border border-slate-700/60 backdrop-blur-md transition-all shadow-md z-30 cursor-pointer"
+            title="Exit / Close Card"
+            aria-label="Close City Spotlight Card"
+          >
+            <X className="w-4 h-4" />
+          </button>
+
           <div className="relative h-28 rounded-2xl overflow-hidden mb-3 border border-slate-800">
             <img
               src={selectedCity.image}

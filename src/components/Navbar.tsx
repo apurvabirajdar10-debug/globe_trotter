@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Sparkles, Plus, MapPin, Calendar, DollarSign, User as UserIcon, LogOut, Menu, X, ChevronDown, ListFilter, Globe2, Ticket } from 'lucide-react';
+import { Compass, Sparkles, Plus, MapPin, Calendar, IndianRupee, User as UserIcon, LogOut, Menu, X, ChevronDown, ListFilter, Globe2, Ticket } from 'lucide-react';
 import { User, Trip } from '../types/travel';
 
 interface NavbarProps {
@@ -155,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <DollarSign className="w-3.5 h-3.5" />
+                  <IndianRupee className="w-3.5 h-3.5" />
                   <span>Budget & Costs</span>
                 </button>
               </>
@@ -340,7 +340,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                   className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
                 >
-                  <DollarSign className="w-4 h-4 text-sky-600" />
+                  <IndianRupee className="w-4 h-4 text-sky-600" />
                   <span>Budget & Costs</span>
                 </button>
               </>

@@ -163,13 +163,14 @@ export const api = {
     }),
 
   // Catalog
-  searchCatalog: (filters: { query?: string; country?: string; category?: string; cost_index?: string; max_duration?: number }) => {
+  searchCatalog: (filters: { query?: string; country?: string; category?: string; cost_index?: string; max_duration?: number; scope?: 'national' | 'international' }) => {
     const params = new URLSearchParams();
     if (filters.query) params.set('query', filters.query);
     if (filters.country) params.set('country', filters.country);
     if (filters.category) params.set('category', filters.category);
     if (filters.cost_index) params.set('cost_index', filters.cost_index);
     if (filters.max_duration) params.set('max_duration', String(filters.max_duration));
+    if (filters.scope) params.set('scope', filters.scope);
     return request<{ items: CatalogItem[]; countries: string[]; total: number }>(`/catalog/search?${params.toString()}`);
   },
 

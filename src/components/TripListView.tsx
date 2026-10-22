@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Sparkles, MapPin, Calendar, DollarSign, Edit3, Trash2, Copy, Share2, Eye, Search, AlertCircle, Check, Filter } from 'lucide-react';
+import { Plus, Sparkles, MapPin, Calendar, IndianRupee, Edit3, Trash2, Copy, Share2, Eye, Search, AlertCircle, Check, Filter } from 'lucide-react';
 import { Trip } from '../types/travel';
 import { api } from '../lib/api';
 
@@ -334,7 +334,7 @@ export const TripListView: React.FC<TripListViewProps> = ({
                       onClick={() => onSelectTrip(trip, 'budget')}
                       className="py-1.5 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl text-xs font-semibold text-center transition-colors flex items-center justify-center space-x-1"
                     >
-                      <DollarSign className="w-3.5 h-3.5" />
+                      <IndianRupee className="w-3.5 h-3.5" />
                       <span>Budget</span>
                     </button>
                   </div>
